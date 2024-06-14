@@ -4,10 +4,13 @@ import { Button, Drawer, DrawerBody, DrawerContent, DrawerOverlay } from '@chakr
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onClickHome: () => void;
+  onClickUserManagement: () => void;
+  onClickSetting: () => void;
 }
 
 export const MenuDrawer: FC<Props> = memo((props) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onClickHome, onClickUserManagement, onClickSetting } = props;
   return (
     <>
       <Drawer
@@ -19,9 +22,9 @@ export const MenuDrawer: FC<Props> = memo((props) => {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerBody p={0} bg="gray.100">
-              <Button w="100%">TOP</Button>
-              <Button w="100%">ユーザー一覧</Button>
-              <Button w="100%">設定</Button>
+              <Button w="100%" onClick={() => { onClickHome(); onClose(); }}>TOP</Button>
+              <Button w="100%" onClick={() => { onClickUserManagement(); onClose(); }}>ユーザー一覧</Button>
+              <Button w="100%" onClick={() => { onClickSetting(); onClose(); }}>設定</Button>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
