@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User } from "../ types/api/user";
+import { User } from "../types/api/user";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useState } from "react";
 import { useMessage } from "./useMessage";
