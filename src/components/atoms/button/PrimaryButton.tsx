@@ -15,7 +15,7 @@ export const PrimaryButton: FC<Props> = memo((props) => {
       bg="teal.400"
       color="white"
       _hover={{ opacity: 0.8 }}
-      isDisabled={disabled}
+      isDisabled={disabled || loading}
       isLoading={loading}
       onClick={onClick}>
       { children }
