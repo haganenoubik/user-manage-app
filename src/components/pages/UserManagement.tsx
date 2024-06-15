@@ -3,7 +3,7 @@ import {
   Wrap,
   WrapItem,
   Center,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { FC, memo, useCallback, useEffect } from "react";
 import { UserCard } from "../organisms/user/UserCard";
@@ -17,13 +17,15 @@ export const UserManagement: FC = memo(() => {
   const { getUsers, users, loading } = useAllUsers();
   const { onSelectUser, selectedUser } = useSelectUser();
   const { loginUser } = useLoginUser();
-  console.log(loginUser)
 
   useEffect(() => getUsers(), []);
 
-  const onClickUser = useCallback((id: number) => {
-    onSelectUser({ id, users, onOpen })
-  }, [users, onSelectUser, onOpen]);
+  const onClickUser = useCallback(
+    (id: number) => {
+      onSelectUser({ id, users, onOpen });
+    },
+    [users, onSelectUser, onOpen]
+  );
 
   return (
     <>
@@ -46,7 +48,12 @@ export const UserManagement: FC = memo(() => {
           ))}
         </Wrap>
       )}
-      <UserDetailModal user={selectedUser} isOpen={isOpen} onClose={onClose} />
+      <UserDetailModal
+        user={selectedUser}
+        isAdmin={loginUser?.isAdmin}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </>
   );
 });
