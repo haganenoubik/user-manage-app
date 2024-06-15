@@ -1,12 +1,23 @@
-import { Spinner, Wrap, WrapItem, Center } from "@chakra-ui/react";
-import { FC, memo, useEffect } from "react";
+import {
+  Spinner,
+  Wrap,
+  WrapItem,
+  Center,
+  useDisclosure
+} from "@chakra-ui/react";
+import { FC, memo, useCallback, useEffect } from "react";
 import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
+import { UserDetailModal } from "../organisms/user/UserDetailModal";
+
 
 export const UserManagement: FC = memo(() => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { getUsers, users, loading } = useAllUsers();
 
   useEffect(() => getUsers(), []);
+
+  const onClickUser = useCallback(() => onOpen(), []);
 
   return (
     <>
@@ -15,18 +26,20 @@ export const UserManagement: FC = memo(() => {
           <Spinner />
         </Center>
       ) : (
-        <Wrap p={{ base: 4, md: 10 }} >
+        <Wrap p={{ base: 4, md: 10 }}>
           {users.map((user) => (
             <WrapItem key={user.id} mx="auto">
               <UserCard
                 imageUrl="https://picsum.photos/800"
                 userName={user.username}
                 fullName={user.name}
+                onClick={onClickUser}
               />
             </WrapItem>
           ))}
         </Wrap>
       )}
+      <UserDetailModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 });
